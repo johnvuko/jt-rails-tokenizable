@@ -1,10 +1,5 @@
 require 'tokenize'
 
-module JT
-	module Rails
-	end
-end
-
 module JT::Rails::Tokenizable
 
 	class Railtie < Rails::Railtie
