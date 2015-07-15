@@ -1,8 +1,3 @@
-module JT
-	module Rails
-	end
-end
-
 module JT::Rails::Tokenizable::Tokenize
 	extend ActiveSupport::Concern
 

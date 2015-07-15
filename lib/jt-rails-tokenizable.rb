@@ -1,3 +1,10 @@
+module JT
+	module Rails
+		module Tokenizable
+		end
+	end
+end
+
 require 'tokenize'
 
 module JT::Rails::Tokenizable
