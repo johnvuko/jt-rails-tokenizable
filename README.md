@@ -16,12 +16,8 @@ Include the gem in your Gemfile:
 
 ### Basic usage
 
-Include `JT::Rails::Tokenizable` in your model:
-
 ```ruby
 class User < ActiveRecord::Base
-	include JT::Rails::Tokenizable
-
 	tokenize :my_token_field
 	tokenize :another_token_field, size: 20, validations: false
 	...
