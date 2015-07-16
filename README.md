@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-You change the length of the token (128 by default) and disable the presence and uniqueness validations.
+You can change the size of the token (32 by default, which means 64 caracters) and disable the presence and uniqueness validations. The generation of token is using `SecureRandom.hex` method.
 
 A new unique token is generated at the creation of the model. You can generate a new token with:
 

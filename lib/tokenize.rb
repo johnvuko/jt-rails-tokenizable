@@ -28,7 +28,7 @@ module JT::Rails::Tokenizable::Tokenize
 	end
 
 	def generate_new_token(field)
-		size = jt_rails_token_fields[field.to_sym].fetch(:size, 128)
+		size = jt_rails_token_fields[field.to_sym].fetch(:size, 32)
 
 		self[field.to_sym] = loop do
 			random_token = SecureRandom.hex(size)
