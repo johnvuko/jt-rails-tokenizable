@@ -2,17 +2,15 @@ module JT::Rails::Tokenizable::Tokenize
 	extend ActiveSupport::Concern
 
 	included do
-		before_validation :generate_tokens, on: :create
-
-		mattr_accessor :jt_rails_token_fields do
-			{}
-		end
+		before_validation :jt_rails_generate_tokens, on: :create
 	end
 
 	module ClassMethods
 
 		def tokenize(field, options = {})
-			jt_rails_token_fields[field.to_sym] = options
+			@@jt_rails_token_fields ||= {}
+
+			@@jt_rails_token_fields[field.to_sym] = options
 
 			if options.fetch(:valiations, true)
 				validates field, presence: true, uniqueness: true
@@ -21,14 +19,16 @@ module JT::Rails::Tokenizable::Tokenize
 
 	end
 
-	def generate_tokens
-		for field in jt_rails_token_fields.keys
+	def jt_rails_generate_tokens
+		@@jt_rails_token_fields ||= {}
+
+		for field in @@jt_rails_token_fields.keys
 			generate_new_token(field)
 		end
 	end
 
 	def generate_new_token(field)
-		size = jt_rails_token_fields[field.to_sym].fetch(:size, 32)
+		size = @@jt_rails_token_fields[field.to_sym].fetch(:size, 32)
 
 		self[field.to_sym] = loop do
 			random_token = SecureRandom.hex(size)
