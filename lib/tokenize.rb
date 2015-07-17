@@ -1,22 +1,28 @@
 module JT::Rails::Tokenizable::Tokenize
 	extend ActiveSupport::Concern
 
-	included do
+	included do |base|
 		before_validation :jt_rails_generate_tokens, on: :create
+
+		base.class_eval do
+
+			# jt_rails_token_fields is shared only by a class and its subclass
+			def self.jt_rails_token_fields
+				class_variable_set(:@@jt_rails_token_fields, {}) if !class_variable_defined?(:@@jt_rails_token_fields)
+				class_variable_get(:@@jt_rails_token_fields)
+			end
+
+		end
 	end
 
 	class_methods do
 
-		def tokenize(field, options = {})
+		def tokenize(field, options = {})		
 			jt_rails_token_fields[field.to_sym] = options
 
 			if options.fetch(:valiations, true)
 				validates field, presence: true, uniqueness: true
 			end
-		end
-
-		def jt_rails_token_fields
-			@jt_rails_token_fields ||= {}
 		end
 
 	end
