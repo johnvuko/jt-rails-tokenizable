@@ -8,7 +8,7 @@ module JT::Rails::Tokenizable::Tokenize
 
 			# jt_rails_token_fields is shared only by a class and its subclass
 			def self.jt_rails_token_fields
-				class_variable_set(:@@jt_rails_token_fields, {}) if !class_variable_defined?(:@@jt_rails_token_fields)
+				class_variable_set(:@@jt_rails_token_fields, HashWithIndifferentAccess.new) if !class_variable_defined?(:@@jt_rails_token_fields)
 				class_variable_get(:@@jt_rails_token_fields)
 			end
 
