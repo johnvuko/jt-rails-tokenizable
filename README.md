@@ -20,11 +20,12 @@ Include the gem in your Gemfile:
 class User < ActiveRecord::Base
 	tokenize :my_token_field
 	tokenize :another_token_field, size: 20, validations: false
+	tokenize :another_token_field, size: 20, only_digits: true
 	...
 end
 ```
 
-You can change the size of the token (32 by default, which means 64 caracters) and disable the presence and uniqueness validations. The generation of token is using `SecureRandom.hex` method.
+You can change the size of the token (32 by default, which means 64 caracters) and disable the presence and uniqueness validations. The generation of token is using `SecureRandom.hex` or `SecureRandom.random_number` methods.
 
 A new unique token is generated at the creation of the model. You can generate a new token with:
 

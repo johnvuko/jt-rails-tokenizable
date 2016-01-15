@@ -35,9 +35,10 @@ module JT::Rails::Tokenizable::Tokenize
 
 	def generate_new_token(field)
 		size = self.class.jt_rails_token_fields[field.to_sym].fetch(:size, 32)
+		only_digits = self.class.jt_rails_token_fields[field.to_sym].fetch(:only_digits, false)
 
 		self[field.to_sym] = loop do
-			random_token = SecureRandom.hex(size)
+			random_token = only_digits ? SecureRandom.random_number(10**size) : SecureRandom.hex(size)
 			break random_token unless self.class.exists?(field => random_token)
 		end
 	end
