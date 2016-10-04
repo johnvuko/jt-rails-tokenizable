@@ -2,7 +2,7 @@ module JT::Rails::Tokenizable::Tokenize
 	extend ActiveSupport::Concern
 
 	included do |base|
-		before_validation :jt_rails_generate_tokens, on: :create
+		before_validation :jt_rails_generate_tokens_if_missing, on: :create
 
 		base.class_eval do
 
@@ -25,6 +25,12 @@ module JT::Rails::Tokenizable::Tokenize
 			end
 		end
 
+	end
+
+	def jt_rails_generate_tokens_if_missing
+		for field in self.class.jt_rails_token_fields.keys
+			generate_new_token(field) if self[field.to_sym].blank?
+		end
 	end
 
 	def jt_rails_generate_tokens
