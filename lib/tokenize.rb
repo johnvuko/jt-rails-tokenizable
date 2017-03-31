@@ -49,4 +49,9 @@ module JT::Rails::Tokenizable::Tokenize
 		end
 	end
 
+	def generate_new_token!(field)
+		generate_new_token(field)
+		save!
+	end
+
 end

@@ -32,6 +32,10 @@ A new unique token is generated at the creation of the model. You can generate a
 ```ruby
 my_instance.generate_new_token(:my_token_field)
 my_instance.save
+
+# or directly
+
+my_instance.generate_new_token!(:my_token_field)
 ```
 
 ## Author
